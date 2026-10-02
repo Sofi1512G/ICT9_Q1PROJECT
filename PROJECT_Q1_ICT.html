@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q1 Project</title>
+  <style>
+    :root {
+      --sky: #bde3f8;
+      --sky-deep: #7cc0e8;
+      --pink: #f9cfe2;
+      --pink-deep: #ee9fc2;
+      --purple: #d9c8f3;
+      --purple-deep: #9a7fd1;
+      --ink: #4a3f6b;
+      --paper: #fff9fd;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    header.top {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 24px;
+      background: linear-gradient(90deg, var(--purple-deep), var(--sky-deep));
+    }
+    header.top .brand { color: #fff; font-weight: bold; font-size: 1.05rem; display: flex; align-items: center; gap: 10px; }
+    header.top .brand img { height: 56px; width: auto; background: #fff; border-radius: 8px; padding: 3px; }
+    header.top nav a {
+      color: #fff; text-decoration: none; font-weight: bold;
+      margin-left: 18px; font-size: .95rem;
+    }
+    header.top nav a:hover { text-decoration: underline; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 40px 20px 48px;
+      background: linear-gradient(180deg, var(--sky) 0%, var(--pink) 100%);
+    }
+    .hero img.logo {
+      width: min(320px, 70%);
+      border-radius: 28px;
+      border: 4px solid #fff;
+      box-shadow: 0 8px 0 var(--purple);
+    }
+    .hero h1 { margin: 22px 0 6px; font-size: 2rem; }
+    .names {
+      display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+      margin: 14px 0 6px;
+    }
+    .names span {
+      padding: 6px 20px; border-radius: 999px; font-weight: bold; font-size: 1.1rem;
+      border: 3px solid #fff; color: var(--ink);
+    }
+    .names .katie  { background: var(--sky); }
+    .names .sophie { background: var(--pink); }
+    .names .mikai  { background: var(--purple); }
+    .hero p.tagline { margin: 10px auto 0; max-width: 520px; }
+
+    /* Sections */
+    main { max-width: 1000px; margin: 0 auto; padding: 0 20px 20px; }
+    section { padding-top: 36px; }
+    h2.bar {
+      margin: 0 auto 20px; max-width: 460px; text-align: center;
+      color: #fff; font-size: 1.3rem; padding: 8px 16px; border-radius: 10px;
+      background: linear-gradient(90deg, var(--sky-deep), var(--purple-deep));
+    }
+
+    /* About */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 18px; }
+    .box {
+      background: #fff; border: 3px dashed var(--purple); border-radius: 14px; padding: 16px 20px;
+    }
+    .box h3 { margin-top: 0; }
+    dt { font-weight: bold; }
+    dd { margin: 0 0 8px 0; }
+
+    /* Works */
+    .member { margin-bottom: 34px; }
+    .member h3 {
+      display: inline-block; margin: 0 0 14px; padding: 4px 22px; border-radius: 999px; color: var(--ink);
+    }
+    .member.katie  h3 { background: var(--sky); }
+    .member.sophie h3 { background: var(--pink); }
+    .member.mikai  h3 { background: var(--purple); }
+    .works { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .work { display: flex; flex-direction: column; gap: 10px; }
+    .shot {
+      border: 3px dashed var(--purple-deep); border-radius: 12px; overflow: hidden;
+      background: repeating-linear-gradient(45deg, var(--sky), var(--sky) 12px, var(--pink) 12px, var(--pink) 24px);
+      aspect-ratio: 16 / 10;
+    }
+    .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .caption { text-align: center; font-style: italic; margin: 0; }
+    ul.checks { list-style: none; padding: 0; margin: 0; }
+    ul.checks li::before { content: "\2713\00a0"; color: var(--purple-deep); font-weight: bold; }
+    .work a { color: var(--purple-deep); font-weight: bold; }
+
+    hr { border: none; border-top: 2px solid var(--purple); margin: 30px 0 0; }
+
+    /* Contact */
+    form {
+      max-width: 520px; margin: 0 auto; background: #fff;
+      border: 3px solid var(--pink); border-radius: 14px; padding: 20px;
+    }
+    .field { margin-bottom: 14px; }
+    label, .field > span.label { display: block; font-weight: bold; margin-bottom: 4px; }
+    .opt { font-weight: normal; margin-right: 12px; display: inline-block; }
+    input[type="text"], input[type="email"], select, textarea {
+      width: 100%; padding: 8px 10px; font: inherit; color: var(--ink);
+      border: 2px solid var(--sky); border-radius: 8px; background: var(--paper);
+    }
+    input:focus, select:focus, textarea:focus, button:focus-visible, a:focus-visible {
+      outline: 3px solid var(--purple-deep); outline-offset: 2px;
+    }
+    button {
+      width: 100%; padding: 10px; font: inherit; font-weight: bold; color: #fff; cursor: pointer;
+      border: none; border-radius: 8px; background: linear-gradient(90deg, var(--purple-deep), var(--pink-deep));
+    }
+    button:hover { filter: brightness(1.05); }
+
+    footer {
+      margin-top: 40px; padding: 16px; text-align: center; color: #fff; font-size: .9rem;
+      background: linear-gradient(90deg, var(--sky-deep), var(--purple-deep));
+    }
+
+    @media (max-width: 680px) {
+      .about-grid, .works { grid-template-columns: 1fr; }
+      header.top nav a { margin-left: 10px; font-size: .85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top">
+    <span class="brand"><img src="https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fpng&attachment_token=ABLWXTeoNSB2RunAa8xqi1Mw4KnTdjeUBYTi2U2XCkF6%2BkJbkZCGyNFMYuIM91WgRW0xADEKKcbuPpHYMWspgrTFha3lh63FJoa4zIvXxlNhccZoQztBcjjJZe6crRrImSMt%2FQ1wagiLTUCzFcLe%2BOjb3yL14XT3DL6Hk0%2FCGCqH3hdu9N5%2FHsOIaHy%2BpneyLHJWeIn3amuVd297%2Bquj1od2l9k9NH%2B9Ek0tp7606dHj3d7i%2BhXn5xMDRZgGpDe3lb%2BZDbnzr6M%2FcPYcug%2BgoTbk6f7HnJ6tfPdjOhen1EFNL%2F1CKUbSRGejO2PBRCGl0inTN%2B3CJWR4uDPsGI7z%2FDcpzz5S9kbZrVlU3jSAgNjnNwvQVgYBWMgTHb6Bl3jM5FMIx6RDDapvHcHWHyHiZIXYf7KdxBDcAxdpMVbE8CzgAvXBIsjZjYnUu1yD0PegyFAPwsgbypalvqDas1eiRIGn%2B%2BH4wfo1sSZwT3Xpjovr3kbXR5HzmmmHGSbJBBmba6rTkaEAqe2lmmhPsFJ%2BOfEkxYSKoT5tQwWINkW6VErQjBXH9FvO44Dcn4IvG30IZN80zM38ywSpTz3ytmVxOiYdBKx0quzIG%2BZ0C6ONVAnUN5ZiSre8Gue%2BpXhi1uF2L9zBoRoD7quJX6bJtGfsjE831rBbllL%2B71nm4%2BXhGeh5Uj2bIUOYmpYj3hos%2F0UxWFWGQlqmdA%3D%3D&allow_caching=true&sz=w512" alt="Our small logo"> Our Portfolio</span>
+    <nav>
+      <a href="#about">About Us</a>
+      <a href="#works">Our Works</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <img class="logo" src="https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fpng&attachment_token=ABLWXTfyH9ddAm%2F8eSWPsJoOHBar8BVTYxINY8wVxjqbWQR92PLbC3xkwU0FbXBBihOFcwLEEhCW6bl6hY2mGqE6Up2Z7Kf33mhYCSTgA7oihte5wUC9QuM5zOfAOb%2FYhUFqgoSYLC6xMp73IUf30PlIl3J8oEwsT3vvx%2BYNPEN1mO%2FckLoJtjoWI7gohoKVz4K6bxiPHF80Vnx8gYgLvAeX6xItZISlCUPy%2Bx1OUameIIMKvGorhrd9xGBOiXz6A908NM5S6sp6IMOv3ZmAKIKXawQKYcGBxCxi24Qivt1pChcurRqCeh45MxZoq8lCSwgdK5Lxtdi279nOyMeprs4tMt25ycs6XyEniYE3jQYs3vlTpLPDRb%2BN9YdrBbLCdT5Q7GFBoak5%2BC9m3GSY8%2Bzjy3CFOtDBIkBpZ7K8wRViROaKES9i6TvjtXkgA1yLOP%2FH7g2pLd%2B6TlNgJL%2BoOgEjqJVkWZ%2FQPYQ2OCAhcJ%2FHHM6NYt0LI29yCuREDJaeWk9gHtSDfUJEGybtsIz1S%2FYRTgf7J5%2BWgVaTZwh7%2Fjugkx3OTJaoPMl14uGb4QwFz2NuNgRcyBZy1iv8jCsj2L8UpTS4OUxZJBEckxvN9AsgRCG4MsHQD6W3fX%2FaVJK2wOsTIo5FL8nF50kJnKEmiZnlOIxOVTODqSE0ELIH%2Frd74D6x2gWh&allow_caching=true&sz=w512" alt="Our group logo: three pixel art girls in yellow, orange, and black hair">
+    <h1>Hello, we're the Powerpuff Trio!</h1>
+    <div class="names">
+      <span class="katie">Katie</span>
+      <span class="sofia">Sofia</span>
+      <span class="mikay">Mikay</span>
+    </div>
+    <p class="tagline">Three ICT 9 students building simple, colorful web pages with HTML and CSS.</p>
+  </div>
+
+  <main>
+
+    <section id="about">
+      <h2 class="bar">About Us</h2>
+      <p>
+        Hi! We are Katie, Sofia, and Mikay, a group of students who love
+        <span>technology</span>, <span>design</span>, and <span>creating things together</span>.
+        This portfolio shows the web pages each of us made this quarter.
+      </p>
+      <div class="about-grid">
+        <div class="box">
+          <h3>Who we are</h3>
+          <dl>
+            <dt>Katie</dt>
+            <dd>Hello, I'm Katie, I enjoy simple coding alongside music and arts. </dd>
+            <dt>Sofia</dt>
+            <dd>Hello, I'm Sofia, I enjoy traveling and singing. </dd>
+            <dt>Mikay</dt>
+            <dd>Hello, I'm Mikay, I like cats and the color blue. I take part of simple coding and enjoy designing.</dd>
+          </dl>
+        </div>
+        <div class="box">
+          <h3>How we built this page</h3>
+          <ol>
+            <li>Wrote the HTML structure</li>
+            <li>Added our logo and photos</li>
+            <li>Styled everything with CSS</li>
+            <li>Checked it in the browser</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="works">
+      <h2 class="bar">Our Works</h2>
+
+      <!-- KATIE -->
+      <div class="member katie">
+        <h3>Katie's Works</h3>
+        <div class="works">
+          <div class="work">
+            <div class="shot"><img src="https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fpng&attachment_token=ABLWXTfO5sElpbC9LdZx%2BrSJ53QMkzkued1w9YX%2BamXZtCwmMLWjs4mgrw%2FmXkpzHKzH4%2FqCzIe9TWIGlhglwFMwsefiFPL3OJrGVsN3Voeribs0Ez6b1FVTTUFHfUyqOPnYb%2F4GOFLDFCZvXCYcXzQvvqv2wlqWzq2ZJ8u5daz%2Btx4HNF8Vhg2cKSkswiRZC3ApbSvPrbwuLaWew6GUh5e%2Fz8B3emgz0ebERq0UTtucGrc%2FP5kWkzhtixzChwNJ9TMj%2F%2FBGCtrCwhurqDQQGIO7fS17bD2L0PfeyLFM89d4q8Pzm%2BOM9wd02Hnab8R16F4KShDCr4jIulyQEQ74sX07rq1ViXDWoRj%2BhvSfZ%2Bso4HsiUcF4wS0VYbjm7dnYWvvwOo65vvgpBERkaJdc8OpFBePLDs%2BCkbgZB1MhliVmRPv39LsKJ4bfgfsFxmGPDiDjsCZsr%2BOcP3CyFT0gDvWA%2FOEDCyHv5I9xHs69Rx%2FL%2FWHpJZOakOQS5zu4BCHy%2Bf4fTa7tyau0FmeBbDc%2FABWI0aeI443mdOyNU4w0PKmAXoLzvhqvvk9s8fwqFszMeslTtyNZwcAKknuurXZZjhTXa%2FOPQmmfOd13YwkCv%2FJMCUqNvlhQ0W50y%2Fkd50My67HaaTlgdjoeo3qdD4FpN1QfX8iMV2AcH3vrJlyJKavkG0ey5sVi&allow_caching=true&sz=s330-c" alt="Katie's favorite Spotify artist page"></div>
+            <ul class="checks">
+              <li>HTML &amp; CSS Projects</li>
+              <li>Spotify Artist</li>
+              <li>Lists, Links and Images</li>
+              <li><a href="https://github.com/" target="_blank">View GitHub Repository</a></li>
+            </ul>
+            <p class="caption">Katie's Favorite Spotify Artist</p>
+          </div>
+          <div class="work">
+            <div class="shot"><img src="https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fpng&attachment_token=ABLWXTft9mbJYkcJL6%2FeM8nqulTiLJCSoayMY44pOceRiB7ites8MS9Segj30F%2F21hDe3aTHb9LVHJ8zlhXwT9upJCiXAGok94LwrIefrImLEMlLKIdWOAFfBrWe2YcfanI3%2Bpux3QB%2Bim008i0kGwD%2B%2BVdPrUKeblCti%2FzMzl%2FsJVP%2Fhw1eU8bdSu0EmcEQRsz0RTewYC6lPYo7xAZocPy5yIhcYrS3SYVizf4Dz%2B4r2VTn%2ByXyZy5N4%2FrM5t0ZM4HuY2mA3RZDOhiTjVcfyAicm1YefFDk59p9s%2BTkcTyOVuU%2B5R8jYtLhaBDZFKMIDdVY1J6sW1vnxIpJWQMcQHNVtfZa9f4fm%2Ffrv3%2Fpxmoxg708AWHYNXclRd%2BSkb%2FlmeXNnfXUoYNOH1YGJpsquX3BSLFOMjd0KHpYVEAwEt9lbESozjuNmrDZBiXi3IR%2FCA7xyTU86GvLDbAgZepnMD1D1wrEhMF23S8xUuAyx60PHiAZ8b%2BDSjxTqr6gcmVJJWNKtCc6TJB389JPdbl1lmmKv5JBh8oSZyT5gmXXj0j%2FIAharo3euJt%2F%2B2jCNPqAEJgDw22L4kKc%2Fp4qfKCmEv2lYQ%2BaIMrqcJIoTxRUVo9ydPAsTJqXGpGWVADdFaO3rBe%2BNXjz%2FPtOuim9JEcY4BstCF1w7OYnS2eZF8gxbrjaolc7QV%2F7GA%3D%3D&allow_caching=true&sz=s330-c" alt="Katie's rate a movie form"></div>
+            <ul class="checks">
+              <li>HTML &amp; CSS Projects</li>
+              <li>HTML Forms</li>
+              <li>Movie Recommendations</li>
+              <li><a href="https://github.com/" target="_blank">View GitHub Repository</a></li>
+            </ul>
+            <p class="caption">Katie's Rate a Movie Form</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOFIA -->
+      <div class="member sofia">
+        <h3>Sofia's Works</h3>
+        <div class="works">
+          <div class="work">
+            <div class="shot"><img src="https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fpng&attachment_token=ABLWXTeOVwJUjm89jVaZbc9jD29Q%2F2KoHqjyHsCg45pCkcoiTxxwckneq38CZYZcYZCdyXGZhawvDfZ1NMO0U7qQXTtaPrNWvAHRrfFiRSY3xQEFxIzxFybGXiAHgTipoqnraEay0R%2Bqd766cwnUsIl4tluFei7vDhcjsF%2BtEKgmfnwzeFGhz3cskdiWdZsGpcy5W0UvwsLxTHiPa9Xd9O3IdrJZYL13UVBXmcmZew3UPk9bpc1FRliXB%2FRdOa9ceJ1fFU8Eq%2FEEaFwWLyOqQH8pU7gtxXnw7lNkzxk%2BsKE06B4lw%2BBABS%2Bkj6YABffgLzgcFQ%2BiTfB2rqO%2BsfwVmxzjdAeuVaLVYMuTQ6U%2B9eF1YdJR7rHi2SwkRP8MEZxfqfKvTAUtPfUfe9pgjU5hm2LNOznjFyj%2BNL%2BFvkymsLwsg%2BxGAtQZrltMXtXFykLo7yIszdi9zcltB6NB%2BOnU1JH8tu%2BatEfiRHtkQCqUdwYbOQFuYSdhZJ1cEFAPc%2FJxmWxyaqAmyH%2Bdzg%3D%3D&allow_caching=true&sz=s330-c" alt="Sofia's favorite Spotify artist page"></div>
+            <ul class="checks">
+              <li>HTML &amp; CSS Projects</li>
+              <li>Spotify Artist</li>
+              <li>Lists, Links and Images</li>
+              <li><a href="https://github.com/" target="_blank">View GitHub Repository</a></li>
+            </ul>
+            <p class="caption">Sofias's Favorite Spotify Artist</p>
+          </div>
+          <div class="work">
+            <div class="shot"><img src="https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fjpeg&attachment_token=ABLWXTedEH6%2FUIKbf30k4XuaiIrf8qkz0cBL%2BFI0KuGJzkezyHjOVD7gHgbPQI3C3lDCEdTDEAGZMSKZXCWLH%2BbiciFALGm3rM%2FNUCHfoQNKCc4EAEjF47rdU7ISlELSPBh%2F8XmoED5m%2BrV6w1b%2BxgN2JR96Ry0V11VmGPlt8OajHSOpxB5IZKn4R62tK%2FSfok2UT0zDFhYdUAO0vFDglWQuqEmIe3Rd3hU3k2KqF2dzNMF5VoEHCEhIxaHe2AkKXFhkZPyE4JA7JszNyH7%2Fi47Ey%2BKwgqY2BwS6dwWdp7OHts3fbeWEAYQm6OtoKpi4Rd4BCgqBTZ%2F%2FdENLBN0tpNwjMndK9dG7tIj6alny4X3H5OmwZosfmHSFq%2BnluE9dXXSIObX%2BIgZuFY5GNbj40%2BukQk%2F3xgjTdck7o1lfADtN7cM73kLdMcCkyS2GN3S6etzuNNVKn5A%2FKZGKebs6kDITBbMh563jjBCaSjENiFKCNbM1oEJqE5N0YXv5b0sQkp1QhZ5pehgBJDUDyw%3D%3D&allow_caching=true&sz=s330-c" alt="Sofia's rate a movie form"></div>
+            <ul class="checks">
+              <li>HTML &amp; CSS Projects</li>
+              <li>HTML Forms</li>
+              <li>Movie Recommendations</li>
+              <li><a href="https://github.com/Sofi1512G/ICT9_Q1PROJECT.git" target="_blank">View GitHub Repository</a></li>
+            </ul>
+            <p class="caption">Sofias's Rate a Movie Form</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MIKAY -->
+      <div class="member mikay">
+        <h3>Mikay's Works</h3>
+        <div class="works">
+          <div class="work">
+            <div class="shot"><img src="https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fpng&attachment_token=ABLWXTeEB14R1aRWkEYGdsbhiNfYrP0BjrDZ0CTv4tSNXFRuWnvwYXNLGjYPw133RpDp3vk%2F7e8iGLvh7Oilr2FyeDQXfB7DFXBarR4kN6Pjn%2FNfT7j56runOED84GR5vaCWfmoBI4RboKEZ4niohpYPOBiJH0d%2Fccwu2jxDQ0m6AYnwJoEbcBBiYwjef1RgWizhr1yVLL8NenPgBjUzlkWgk2Y1duLHqIuOLowbSre4qZ1EcLMt7uSafutCmzmCw58Oa2PmPx3QTuT8uTSAOgBGcLlGo6yoxVJN5zpFZCMspc2YGLQAioHVK5BZGiESjdlK78%2FhWFqewXx847lkMyFqQXRHkg30Qpc1UQX5FoWiwA33TpQ3G3iKAlC24EyHHuqun%2BfkQoLeuE3GlLYf81aNLjGJrh1G1fROGIDLLaYCfvqizukLanyGC3Z8iFq1tPSjsXDYU62MupM8iE%2F1GGe57ojCED6tgOYavw0bQYvC5OA5PMVqz4ypNfHFGmC%2FPPID7uCwrbZa%2F077dAs%3D&allow_caching=true&sz=s330-c" alt="Mikay's favorite Spotify artist page"></div>
+            <ul class="checks">
+              <li>HTML &amp; CSS Projects</li>
+              <li>Spotify Artist</li>
+              <li>Lists, Links and Images</li>
+              <li><a href="https://github.com/" target="_blank">View GitHub Repository</a></li>
+            </ul>
+            <p class="caption">Mikay's Favorite Spotify Artist</p>
+          </div>
+          <div class="work">
+            <div class="shot"><img src="https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fpng&attachment_token=ABLWXTfnv939tOdNDPGq8hxI3wYmu7RBH%2FBWvkNj49%2BgCcS%2FmsmZYgJ2BzUq3poHRXHI9%2Buw986uvYVXLy4a%2FgqDo5yFdVtf8dNee8rqa7DWTynwRVAUvQ0GziMoGR9IbFmQiwxd72avZmYitbvRldNHsM3mPIz0JSjA3Kl0tMEMnefdQEemoUN3LvVMtd5kTqtbQVI%2F0D8H9tVoDGqU296OjXvY%2BgljDA4gNVFSNZ%2FU2jLAyk6u8LmMDI%2BDdCipzw0BmFXoOTbwLiYOAWi%2BAGRRhztz8NloP%2BlKL9JO1vnjtIEEPLSasuMTYuuHXZEXDBSYrVHiaDlaGSL1TZ6pjgyPzJ%2F9KPNhxslES%2FzlAHe92zoPltY4nI94Q96ehyVnXYJ7qk88nAX9N994823X9O4ONMHHuqmDCSeDQDf9GzZc9bVsikWobS1DWHfT8LyA1KQ%2F0TDDaOqg0ilQMTWVPm9D9MsBUNO%2FXqerkus27zriNZV%2FjQr%2F2cJF6UXStGJMSijs7ShvFPP5x3dZ&allow_caching=true&sz=s330-c" alt="Mikay's rate a movie form"></div>
+            <ul class="checks">
+              <li>HTML &amp; CSS Projects</li>
+              <li>HTML Forms</li>
+              <li>Movie Recommendations</li>
+              <li><a href="https://github.com/" target="_blank">View GitHub Repository</a></li>
+            </ul>
+            <p class="caption">Mikay's Rate a Movie Form</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <section id="contact">
+      <h2 class="bar">Contact Us</h2>
+      <form action="#" method="post">
+        <div class="field">
+          <label for="name">Your Name:</label>
+          <input type="text" id="name" name="name" placeholder="Jane Doe">
+        </div>
+        <div class="field">
+          <label for="email">Your Email:</label>
+          <input type="email" id="email" name="email" placeholder="jane.doe@gmail.com">
+        </div>
+        <div class="field">
+          <span class="label">How did you find us?</span>
+          <label class="opt"><input type="radio" name="found" value="facebook"> Facebook</label>
+          <label class="opt"><input type="radio" name="found" value="google"> Google</label>
+          <label class="opt"><input type="radio" name="found" value="friends"> Friends</label>
+        </div>
+        <div class="field">
+          <span class="label">Interested in:</span>
+          <label class="opt"><input type="checkbox" name="interest" value="web"> Web Design</label>
+          <label class="opt"><input type="checkbox" name="interest" value="graphic"> Graphic Design</label>
+          <label class="opt"><input type="checkbox" name="interest" value="robotics"> Robotics</label>
+        </div>
+        <div class="field">
+          <label for="rating">Rate our Portfolio:</label>
+          <select id="rating" name="rating">
+            <option value="">-- Select Rating --</option>
+            <option>5 - Amazing</option>
+            <option>4 - Great</option>
+            <option>3 - Good</option>
+            <option>2 - Okay</option>
+            <option>1 - Needs work</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="feedback">Any Feedback?</label>
+          <textarea id="feedback" name="feedback" rows="4" placeholder="Feedback here..."></textarea>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; 2026 Katie, Sophie and Mikai. All rights reserved.
+  </footer>
+
+</body>
+</html>
