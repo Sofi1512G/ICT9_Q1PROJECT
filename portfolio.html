@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q1 Project</title>
+  <style>
+    :root {
+      --sky: #bde3f8;
+      --sky-deep: #7cc0e8;
+      --pink: #f9cfe2;
+      --pink-deep: #ee9fc2;
+      --purple: #d9c8f3;
+      --purple-deep: #9a7fd1;
+      --ink: #4a3f6b;
+      --paper: #fff9fd;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    header.top {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 24px;
+      background: linear-gradient(90deg, var(--purple-deep), var(--sky-deep));
+    }
+    header.top .brand { color: #fff; font-weight: bold; font-size: 1.05rem; display: flex; align-items: center; gap: 10px; }
+    header.top .brand img { height: 56px; width: auto; background: #fff; border-radius: 8px; padding: 3px; }
+    header.top nav a {
+      color: #fff; text-decoration: none; font-weight: bold;
+      margin-left: 18px; font-size: .95rem;
+    }
+    header.top nav a:hover { text-decoration: underline; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 40px 20px 48px;
+      background: linear-gradient(180deg, var(--sky) 0%, var(--pink) 100%);
+    }
+    .hero img.logo {
+      width: min(320px, 70%);
+      border-radius: 28px;
+      border: 4px solid #fff;
+      box-shadow: 0 8px 0 var(--purple);
+    }
+    .hero h1 { margin: 22px 0 6px; font-size: 2rem; }
+    .names {
+      display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+      margin: 14px 0 6px;
+    }
+    .names span {
+      padding: 6px 20px; border-radius: 999px; font-weight: bold; font-size: 1.1rem;
+      border: 3px solid #fff; color: var(--ink);
+    }
+    .names .katie  { background: var(--sky); }
+    .names .sophie { background: var(--pink); }
+    .names .mikai  { background: var(--purple); }
+    .hero p.tagline { margin: 10px auto 0; max-width: 520px; }
+
+    /* Sections */
+    main { max-width: 1000px; margin: 0 auto; padding: 0 20px 20px; }
+    section { padding-top: 36px; }
+    h2.bar {
+      margin: 0 auto 20px; max-width: 460px; text-align: center;
+      color: #fff; font-size: 1.3rem; padding: 8px 16px; border-radius: 10px;
+      background: linear-gradient(90deg, var(--sky-deep), var(--purple-deep));
+    }
+
+    /* About */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 18px; }
+    .box {
+      background: #fff; border: 3px dashed var(--purple); border-radius: 14px; padding: 16px 20px;
+    }
+    .box h3 { margin-top: 0; }
+    dt { font-weight: bold; }
+    dd { margin: 0 0 8px 0; }
+
+    /* Works */
+    .member { margin-bottom: 34px; }
+    .member h3 {
+      display: inline-block; margin: 0 0 14px; padding: 4px 22px; border-radius: 999px; color: var(--ink);
+    }
+    .member.katie  h3 { background: var(--sky); }
+    .member.sophie h3 { background: var(--pink); }
+    .member.mikai  h3 { background: var(--purple); }
+    .works { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .work { display: flex; flex-direction: column; gap: 10px; }
+    .shot {
+      border: 3px dashed var(--purple-deep); border-radius: 12px; overflow: hidden;
+      background: repeating-linear-gradient(45deg, var(--sky), var(--sky) 12px, var(--pink) 12px, var(--pink) 24px);
+      aspect-ratio: 16 / 10;
+    }
+    .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .caption { text-align: center; font-style: italic; margin: 0; }
+    ul.checks { list-style: none; padding: 0; margin: 0; }
+    ul.checks li::before { content: "\2713\00a0"; color: var(--purple-deep); font-weight: bold; }
+    .work a { color: var(--purple-deep); font-weight: bold; }
+
+    hr { border: none; border-top: 2px solid var(--purple); margin: 30px 0 0; }
+
+    /* Contact */
+    form {
+      max-width: 520px; margin: 0 auto; background: #fff;
+      border: 3px solid var(--pink); border-radius: 14px; padding: 20px;
+    }
+    .field { margin-bottom: 14px; }
+    label, .field > span.label { display: block; font-weight: bold; margin-bottom: 4px; }
+    .opt { font-weight: normal; margin-right: 12px; display: inline-block; }
+    input[type="text"], input[type="email"], select, textarea {
+      width: 100%; padding: 8px 10px; font: inherit; color: var(--ink);
+      border: 2px solid var(--sky); border-radius: 8px; background: var(--paper);
+    }
+    input:focus, select:focus, textarea:focus, button:focus-visible, a:focus-visible {
+      outline: 3px solid var(--purple-deep); outline-offset: 2px;
+    }
+    button {
+      width: 100%; padding: 10px; font: inherit; font-weight: bold; color: #fff; cursor: pointer;
+      border: none; border-radius: 8px; background: linear-gradient(90deg, var(--purple-deep), var(--pink-deep));
+    }
+    button:hover { filter: brightness(1.05); }
+
+    footer {
+      margin-top: 40px; padding: 16px; text-align: center; color: #fff; font-size: .9rem;
+      background: linear-gradient(90deg, var(--sky-deep), var(--purple-deep));
+    }
+
+    @media (max-width: 680px) {
+      .about-grid, .works { grid-template-columns: 1fr; }
+      header.top nav a { margin-left: 10px; font-size: .85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top">
+    <span class="brand"><img src="logo-small.png" alt="Our small logo"> Our Portfolio</span>
+    <nav>
+      <a href="#about">About Us</a>
+      <a href="#works">Our Works</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <img class="logo" src="logo.png" alt="Our group logo: three pixel art girls in yellow, orange, and black hair">
+    <h1>Hello, we're the Powerpuff Trio!</h1>
+    <div class="names">
+      <span class="katie">Katie</span>
+      <span class="sophie">Sophie</span>
+      <span class="mikai">Mikai</span>
+    </div>
+    <p class="tagline">Three ICT 9 students building simple, colorful web pages with HTML and CSS.</p>
+  </div>
+
+  <main>
+
+    <section id="about">
+      <h2 class="bar">About Us</h2>
+      <p>
+        Hi! We are Katie, Sophie, and Mikai, a group of students who love
+        <span>technology</span>, <span>design</span>, and <span>creating things together</span>.
+        This portfolio shows the web pages each of us made this quarter.
+      </p>
+      <div class="about-grid">
+        <div class="box">
+          <h3>Who we are</h3>
+          <dl>
+            <dt>Katie</dt>
+            <dd>Sky blue member. Builder of two web pages.</dd>
+            <dt>Sophie</dt>
+            <dd>Pastel pink member. Builder of two web pages.</dd>
+            <dt>Mikai</dt>
+            <dd>Pastel purple member. Builder of two web pages.</dd>
+          </dl>
+        </div>
+        <div class="box">
+          <h3>How we built this page</h3>
+          <ol>
+            <li>Wrote the HTML structure</li>
+            <li>Added our logo and photos</li>
+            <li>Styled everything with CSS</li>
+            <li>Checked it in the browser</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="works">
+      <h2 class="bar">Our Works</h2>
+
+      <!-- KATIE -->
+      <div class="member katie">
+        <h3>Katie's Works</h3>
+        <div class="works">
+          <div class="work">
+            <div class="shot"><img src="images/katie-spotify.png" alt="Katie's favorite Spotify artist page"></div>
+            <ul class="checks">
+              <li>HTML &amp; CSS Projects</li>
+              <li>Spotify Artist</li>
+              <li>Lists, Links and Images</li>
+              <li><a href="https://github.com/" target="_blank">View GitHub Repository</a></li>
+            </ul>
+            <p class="caption">Katie's Favorite Spotify Artist</p>
+          </div>
+          <div class="work">
+            <div class="shot"><img src="images/katie-movie.png" alt="Katie's rate a movie form"></div>
+            <ul class="checks">
+              <li>HTML &amp; CSS Projects</li>
+              <li>HTML Forms</li>
+              <li>Movie Recommendations</li>
+              <li><a href="https://github.com/" target="_blank">View GitHub Repository</a></li>
+            </ul>
+            <p class="caption">Katie's Rate a Movie Form</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOPHIE -->
+      <div class="member sophie">
+        <h3>Sophie's Works</h3>
+        <div class="works">
+          <div class="work">
+            <div class="shot"><img src="images/sophie-spotify.png" alt="Sophie's favorite Spotify artist page"></div>
+            <ul class="checks">
+              <li>HTML &amp; CSS Projects</li>
+              <li>Spotify Artist</li>
+              <li>Lists, Links and Images</li>
+              <li><a href="https://github.com/" target="_blank">View GitHub Repository</a></li>
+            </ul>
+            <p class="caption">Sophie's Favorite Spotify Artist</p>
+          </div>
+          <div class="work">
+            <div class="shot"><img src="images/sophie-movie.png" alt="Sophie's rate a movie form"></div>
+            <ul class="checks">
+              <li>HTML &amp; CSS Projects</li>
+              <li>HTML Forms</li>
+              <li>Movie Recommendations</li>
+              <li><a href="https://github.com/" target="_blank">View GitHub Repository</a></li>
+            </ul>
+            <p class="caption">Sophie's Rate a Movie Form</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MIKAI -->
+      <div class="member mikai">
+        <h3>Mikai's Works</h3>
+        <div class="works">
+          <div class="work">
+            <div class="shot"><img src="images/mikai-spotify.png" alt="Mikai's favorite Spotify artist page"></div>
+            <ul class="checks">
+              <li>HTML &amp; CSS Projects</li>
+              <li>Spotify Artist</li>
+              <li>Lists, Links and Images</li>
+              <li><a href="https://github.com/" target="_blank">View GitHub Repository</a></li>
+            </ul>
+            <p class="caption">Mikai's Favorite Spotify Artist</p>
+          </div>
+          <div class="work">
+            <div class="shot"><img src="images/mikai-movie.png" alt="Mikai's rate a movie form"></div>
+            <ul class="checks">
+              <li>HTML &amp; CSS Projects</li>
+              <li>HTML Forms</li>
+              <li>Movie Recommendations</li>
+              <li><a href="https://github.com/" target="_blank">View GitHub Repository</a></li>
+            </ul>
+            <p class="caption">Mikai's Rate a Movie Form</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <section id="contact">
+      <h2 class="bar">Contact Us</h2>
+      <form action="#" method="post">
+        <div class="field">
+          <label for="name">Your Name:</label>
+          <input type="text" id="name" name="name" placeholder="Jane Doe">
+        </div>
+        <div class="field">
+          <label for="email">Your Email:</label>
+          <input type="email" id="email" name="email" placeholder="jane.doe@gmail.com">
+        </div>
+        <div class="field">
+          <span class="label">How did you find us?</span>
+          <label class="opt"><input type="radio" name="found" value="facebook"> Facebook</label>
+          <label class="opt"><input type="radio" name="found" value="google"> Google</label>
+          <label class="opt"><input type="radio" name="found" value="friends"> Friends</label>
+        </div>
+        <div class="field">
+          <span class="label">Interested in:</span>
+          <label class="opt"><input type="checkbox" name="interest" value="web"> Web Design</label>
+          <label class="opt"><input type="checkbox" name="interest" value="graphic"> Graphic Design</label>
+          <label class="opt"><input type="checkbox" name="interest" value="robotics"> Robotics</label>
+        </div>
+        <div class="field">
+          <label for="rating">Rate our Portfolio:</label>
+          <select id="rating" name="rating">
+            <option value="">-- Select Rating --</option>
+            <option>5 - Amazing</option>
+            <option>4 - Great</option>
+            <option>3 - Good</option>
+            <option>2 - Okay</option>
+            <option>1 - Needs work</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="feedback">Any Feedback?</label>
+          <textarea id="feedback" name="feedback" rows="4" placeholder="Feedback here..."></textarea>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; 2026 Katie, Sophie and Mikai. All rights reserved.
+  </footer>
+
+</body>
+</html>
